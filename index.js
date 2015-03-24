@@ -35,7 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-require('./routes.js')(app, passport);
+require('./routes.js')(app, passport, io, message);
 
 var onlineUsers = [];
 
@@ -121,11 +121,19 @@ io.on('connection', function(socket){
     socket.on('user-connect', function(username){
         console.log('user connected: ' + username);
 
-        onlineUsers.push({"username": username, "sid": socket.id});
+        var userAlreadyHere = false;
+        for (var i = 0; i < onlineUsers.length; i++) {
+          console.log('Checking user:' + JSON.stringify(onlineUsers[i]));
+          if (onlineUsers[i].sid == socket.id) {
+            userAlreadyHere = true;
+          }
+        }
 
-        io.emit('refresh-users', onlineUsers);
-
-        console.log('users:' + JSON.stringify(onlineUsers));
+        if(!userAlreadyHere) {
+          onlineUsers.push({"username": username, "sid": socket.id});
+          io.emit('refresh-users', onlineUsers);
+          console.log('users:' + JSON.stringify(onlineUsers));
+        }
     });
 
 });

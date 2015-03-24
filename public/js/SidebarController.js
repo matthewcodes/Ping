@@ -18,6 +18,15 @@
     };
 
     this.changeChannel = function(channelName) {
+
+      this.channels.forEach(function (channel) {
+        if(channel.name == channelName) {
+          channel.current = true;
+        } else {
+          channel.current = false;
+        }
+      });
+
       this.socket.emit('changeChannel', channelName);
     };
 

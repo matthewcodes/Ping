@@ -1,4 +1,4 @@
-module.exports = function(app, passport) {
+module.exports = function(app, passport, io, message) {
   app.get('/', isAuthenticated, function(req, res){
     if(req.user) {
       res.cookie('user', JSON.stringify(req.user.username));
@@ -50,6 +50,19 @@ module.exports = function(app, passport) {
   app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
+  });
+
+  app.post('/notifications', function(request, response){
+    console.log(request.body);      // your JSON
+    response.send(request.body);    // echo the result back
+    var messageObject = new message(request.body);
+    messageObject.created = new Date();
+    io.emit('message', messageObject);
+
+    messageObject.save(function(err){
+        console.log('saved, err = ' + err);
+    });
+
   });
 
   function isAuthenticated (req, res, next) {
