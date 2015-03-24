@@ -26,12 +26,20 @@
       return userCookie;
     };
 
+    // this.urlify = function urlify(text) {
+    // var urlRegex = '(http|ftp|https):\/\/([\w\-_]+(?:(?:\.[\w\-_]+)+))([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?';
+    // return text.replace(urlRegex, function(url) {
+    //     return '<a href="' + url + '">' + url + '</a>';
+    // })
+
     var messagesController = this;
 
     this.socket.on('message', function (msg) {
       console.log(msg);
-      messagesController.messages.push(msg);
-      messagesController.apply();
+      if(msg.channel == messagesController.currentChannel) {
+        messagesController.messages.push(msg);
+        messagesController.apply();
+      }
     });
 
     this.socket.on('initialisation', function(messages) {
@@ -43,6 +51,9 @@
       messagesController.apply();
 
       messages.forEach(function (message) {
+
+
+
         messagesController.messages.push(message);
       });
 
