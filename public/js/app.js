@@ -1,5 +1,5 @@
 (function(){
 
-  var app = angular.module('Ping', ['luegg.directives', 'ngCookies']);
+  var app = angular.module('Ping', ['luegg.directives', 'ngCookies', 'pingFilters', 'ngSanitize']);
 
 })();

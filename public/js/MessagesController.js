@@ -26,12 +26,6 @@
       return userCookie;
     };
 
-    // this.urlify = function urlify(text) {
-    // var urlRegex = '(http|ftp|https):\/\/([\w\-_]+(?:(?:\.[\w\-_]+)+))([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?';
-    // return text.replace(urlRegex, function(url) {
-    //     return '<a href="' + url + '">' + url + '</a>';
-    // })
-
     var messagesController = this;
 
     this.socket.on('message', function (msg) {
