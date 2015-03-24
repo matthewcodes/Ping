@@ -75,7 +75,7 @@ io.on('connection', function(socket){
           }
         }
 
-        io.to(socket.id).emit('refresh-users', onlineUsers);
+        io.emit('refresh-users', onlineUsers);
 
         console.log('users:' + JSON.stringify(onlineUsers));
     });
@@ -122,7 +122,7 @@ io.on('connection', function(socket){
 
         onlineUsers.push({"username": username, "sid": socket.id});
 
-        io.to(socket.id).emit('refresh-users', onlineUsers);
+        io.emit('refresh-users', onlineUsers);
 
         console.log('users:' + JSON.stringify(onlineUsers));
     });
