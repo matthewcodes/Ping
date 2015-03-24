@@ -75,6 +75,7 @@ module.exports = {
             }
 
             if(result.length === 0 || !sentResponse) {
+              searchQuery = searchQuery.replace(/ /g, '+');
               pingbotMessageText = "http://lmgtfy.com/?q="+searchQuery;
               sendMessage(io, message, pingbotMessageText, channel, author);
             }
