@@ -1,5 +1,9 @@
 module.exports = function(app, passport) {
   app.get('/', isAuthenticated, function(req, res){
+    if(req.user) {
+      res.cookie('user', JSON.stringify(req.user.username));
+    }
+
     res.sendFile(__dirname + '/index.html');
   });
 
