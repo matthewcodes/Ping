@@ -35,6 +35,8 @@
     });
 
     this.socket.on('initialisation', function(messages) {
+      messagesController.socket.emit('user-connect', messagesController.getUser());
+
       var persistedMessages = [];
 
       messagesController.messages = [];

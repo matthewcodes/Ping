@@ -36,9 +36,10 @@ app.use(flash());
 
 require('./routes.js')(app, passport);
 
+var onlineUsers = [];
+
 io.on('connection', function(socket){
     console.log('a user connected');
-    console.log(socket.request.user);
 
     message.find({'channel' : 'General'},function (err, messages) {
       if (err) return console.error(err);
@@ -65,7 +66,18 @@ io.on('connection', function(socket){
     });
 
     socket.on('disconnect', function(){
-        console.log('user disconnected');
+        console.log('user disconnected, sid:' + socket.id);
+
+        for (var i = 0; i < onlineUsers.length; i++) {
+          console.log('Checking user:' + JSON.stringify(onlineUsers[i]));
+          if (onlineUsers[i].sid == socket.id) {
+            onlineUsers.splice(i, 1);
+          }
+        }
+
+        io.to(socket.id).emit('refresh-users', onlineUsers);
+
+        console.log('users:' + JSON.stringify(onlineUsers));
     });
 
     socket.on('channel', function(channelName){
@@ -105,8 +117,17 @@ io.on('connection', function(socket){
         pingbot.checkMessageContent(io, message, newMsg.content, newMsg.channel, newMsg.author);
     });
 
-});
+    socket.on('user-connect', function(username){
+        console.log('user connected: ' + username);
 
+        onlineUsers.push({"username": username, "sid": socket.id});
+
+        io.to(socket.id).emit('refresh-users', onlineUsers);
+
+        console.log('users:' + JSON.stringify(onlineUsers));
+    });
+
+});
 
 http.listen(app.get('port'), function(){
     console.log('listening on *:' + app.get('port'));

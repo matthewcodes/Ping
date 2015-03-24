@@ -5,6 +5,7 @@
   app.controller('SidebarController', function($scope) {
     this.socket = io.connect();
     this.channels = [];
+    this.onlineUsers = [];
 
     this.channel = {};
 
@@ -51,6 +52,14 @@
 
       sidebarController.apply();
 
+    });
+
+    this.socket.on('refresh-users', function(onlineUsers) {
+      sidebarController.onlineUsers = onlineUsers;
+
+      console.log(onlineUsers);
+
+      sidebarController.apply();
     });
 
   });
