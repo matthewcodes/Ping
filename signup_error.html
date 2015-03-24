@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Ping Log In</title>
+    <title>Ping Sign Up</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -38,17 +38,19 @@
 
   <div class="container">
 
-    <form class="form-signin" method="post" action="/login">
-      <h2 class="form-signin-heading">Please sign in</h2>
+    <div class="alert alert-danger centered" role="alert">Username already in use!</div>
+
+    <form class="form-signin" method="post" action="/signup">
+      <h2 class="form-signin-heading">Please sign up</h2>
       <label for="username" class="sr-only">Email address</label>
       <input type="text" name="username" class="form-control" placeholder="username/email" required autofocus>
       <label for="password" class="sr-only">Password</label>
       <input type="password" name="password" class="form-control" placeholder="Password" required>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     </form>
 
     <div class="centered">
-      <a href="/signup">Need and account?</a>
+      <a href="/login">Already registered?</a>
     </div>
 
   </div> <!-- /container -->

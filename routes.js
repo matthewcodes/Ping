@@ -9,7 +9,17 @@ module.exports = function(app, passport) {
 
   app.post('/login', passport.authenticate('local-login', {
     successRedirect : '/', // redirect to the secure profile section
-    failureRedirect : '/login', // redirect back to the signup page if there is an error
+    failureRedirect : '/login_error', // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages
+  }));
+
+  app.get('/login_error', function(req, res) {
+    res.sendFile(__dirname + '/login_error.html');
+  });
+
+  app.post('/login_error', passport.authenticate('local-login', {
+    successRedirect : '/', // redirect to the secure profile section
+    failureRedirect : '/login_error', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
   }));
 
@@ -19,7 +29,17 @@ module.exports = function(app, passport) {
 
   app.post('/signup', passport.authenticate('local-signup', {
     successRedirect : '/', // redirect to the secure profile section
-    failureRedirect : '/signup', // redirect back to the signup page if there is an error
+    failureRedirect : '/signup_error', // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages
+  }));
+
+  app.get('/signup_error', function(req, res) {
+    res.sendFile(__dirname + '/signup_error.html');
+  });
+
+  app.post('/signup_error', passport.authenticate('local-signup', {
+    successRedirect : '/', // redirect to the secure profile section
+    failureRedirect : '/signup_error', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
   }));
 
