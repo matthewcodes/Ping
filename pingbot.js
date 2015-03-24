@@ -55,6 +55,9 @@ module.exports = {
               } else if(result.title.toLowerCase().indexOf('info') > -1) {
                 pingbotMessageText = result.subpods[0].value;
                 sendMessage(io, message, pingbotMessageText, channel, author);
+              } else if(result.title.toLowerCase().indexOf('approximation') > -1) {
+                pingbotMessageText = result.subpods[0].value;
+                sendMessage(io, message, pingbotMessageText, channel, author);
               }
             });
 
