@@ -26,7 +26,7 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
     console.log('a user connected');
 
-    message.find(function (err, messages) {
+    message.find({'channel' : 'General'},function (err, messages) {
       if (err) return console.error(err);
         io.to(socket.id).emit('current-channel', 'General');
         io.to(socket.id).emit('initialisation', messages);
@@ -41,8 +41,9 @@ io.on('connection', function(socket){
 
       console.log('Change Channel '+channelName);
 
-      message.find(function (err, messages) {
+      message.find({'channel' : channelName},function (err, messages) {
         if (err) return console.error(err);
+          console.log('fetching messages for '+channelName);
           io.to(socket.id).emit('current-channel', channelName);
           io.to(socket.id).emit('initialisation', messages);
       });
@@ -72,9 +73,10 @@ io.on('connection', function(socket){
         console.log('message: ' + msg);
 
         var newMsg = new message({
-          content: msg,
+          content: msg.content,
           author: "Anonymous",
-          type: "Message"
+          type: "Message",
+          channel: msg.channel
         });
 
         console.log('saving newMsg: ' + newMsg);

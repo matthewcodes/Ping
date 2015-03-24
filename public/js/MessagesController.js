@@ -11,7 +11,7 @@
 
     this.addMessage = function() {
       this.message.channel = this.currentChannel;
-      this.socket.emit('message', this.message.content);
+      this.socket.emit('message', this.message);
       this.message = {};
     };
 
@@ -22,6 +22,7 @@
     var messagesController = this;
 
     this.socket.on('message', function (msg) {
+      console.log(msg);
       messagesController.messages.push(msg);
       messagesController.apply();
     });
