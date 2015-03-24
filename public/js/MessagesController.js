@@ -1,11 +1,6 @@
 (function(){
 
-  // content: String,
-  // created: {type: Date, default: Date.now},
-  // author: String,
-  // type: String
-
-  var app = angular.module('Chat', ['luegg.directives']);
+  var app = angular.module('Ping');
 
   app.controller('MessagesController', function($scope) {
     this.socket = io.connect();
