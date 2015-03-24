@@ -1,4 +1,17 @@
 /* Toggle Styles */
+.sidebar-brand {
+  color:#1F4D54;
+}
+
+.sidebar-header {
+  color: #1F4D54;
+}
+
+.selected {
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+}
+
 
 #wrapper {
     padding-left: 0;
@@ -20,7 +33,7 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #000;
+    background: #4BBCCC;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -63,7 +76,7 @@
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #999999;
+    color: #557A7F;
 }
 
 .sidebar-nav li a:hover {
