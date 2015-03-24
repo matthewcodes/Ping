@@ -4,6 +4,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongoose = require('mongoose');
 var message = require('./models/message');
+var channel = require('./models/channel');
 
 mongoose.connect('mongodb://localhost/ping', function(err){
   if(err) {
@@ -27,11 +28,44 @@ io.on('connection', function(socket){
 
     message.find(function (err, messages) {
       if (err) return console.error(err);
+        io.to(socket.id).emit('current-channel', 'General');
         io.to(socket.id).emit('initialisation', messages);
+    });
+
+    channel.find(function (err, channels) {
+      if (err) return console.error(err);
+        io.to(socket.id).emit('initialisation-channels', channels);
+    });
+
+    socket.on('changeChannel', function(channelName) {
+
+      console.log('Change Channel '+channelName);
+
+      message.find(function (err, messages) {
+        if (err) return console.error(err);
+          io.to(socket.id).emit('current-channel', channelName);
+          io.to(socket.id).emit('initialisation', messages);
+      });
     });
 
     socket.on('disconnect', function(){
         console.log('user disconnected');
+    });
+
+    socket.on('channel', function(channelName){
+        console.log('new channel: ' + channelName);
+
+        var newChannel = new channel({
+          name: channelName
+        });
+
+        console.log('saving channel: ' + newChannel);
+
+        newChannel.save(function(err){
+            console.log('saved, err = ' + err);
+        });
+
+        io.emit('channel', newChannel);
     });
 
     socket.on('message', function(msg){

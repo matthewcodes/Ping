@@ -5,10 +5,12 @@
   app.controller('MessagesController', function($scope) {
     this.socket = io.connect();
     this.messages = [];
+    this.currentChannel = 'General';
 
     this.message = {};
 
     this.addMessage = function() {
+      this.message.channel = this.currentChannel;
       this.socket.emit('message', this.message.content);
       this.message = {};
     };
@@ -37,6 +39,10 @@
 
       messagesController.apply();
 
+    });
+
+    this.socket.on('current-channel', function(currentChannel) {
+      messagesController.currentChannel = currentChannel;
     });
 
   });
