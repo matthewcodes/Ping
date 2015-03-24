@@ -10,6 +10,7 @@ var flash    = require('connect-flash');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var expressSession = require('express-session');
+var pingbot = require('./pingbot');
 
 mongoose.connect('mongodb://localhost/ping', function(err){
   if(err) {
@@ -46,7 +47,6 @@ io.on('connection', function(socket){
 
     channel.distinct('name', function (err, channels) {
       if (err) return console.error(err);
-        console.log(channels);
         io.to(socket.id).emit('initialisation-channels', channels);
     });
 
@@ -99,6 +99,8 @@ io.on('connection', function(socket){
         });
 
         io.emit('message', newMsg);
+
+        pingbot.checkMessageContent(io, message, newMsg.content, newMsg.channel, newMsg.author);
     });
 
 });
