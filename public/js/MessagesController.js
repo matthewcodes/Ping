@@ -2,7 +2,7 @@
 
   var app = angular.module('Ping');
 
-  app.controller('MessagesController', function($scope) {
+  app.controller('MessagesController', ['$cookies', '$scope', function($cookies, $scope) {
     this.socket = io.connect();
     this.messages = [];
     this.currentChannel = 'General';
@@ -11,12 +11,19 @@
 
     this.addMessage = function() {
       this.message.channel = this.currentChannel;
+      this.message.author = this.getUser();
       this.socket.emit('message', this.message);
       this.message = {};
     };
 
     this.apply = function() {
       $scope.$apply();
+    };
+
+    this.getUser = function() {
+      var userCookie = $cookies['user'];
+      userCookie = userCookie.replace(/"/g, "");
+      return userCookie;
     };
 
     var messagesController = this;
@@ -28,7 +35,6 @@
     });
 
     this.socket.on('initialisation', function(messages) {
-
       var persistedMessages = [];
 
       messagesController.messages = [];
@@ -46,6 +52,6 @@
       messagesController.currentChannel = currentChannel;
     });
 
-  });
+  }]);
 
 })();

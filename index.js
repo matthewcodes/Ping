@@ -38,6 +38,7 @@ require('./routes.js')(app, passport);
 
 io.on('connection', function(socket){
     console.log('a user connected');
+    console.log(socket.request.user);
 
     message.find({'channel' : 'General'},function (err, messages) {
       if (err) return console.error(err);
@@ -47,6 +48,7 @@ io.on('connection', function(socket){
 
     channel.distinct('name', function (err, channels) {
       if (err) return console.error(err);
+        console.log(channels);
         io.to(socket.id).emit('initialisation-channels', channels);
     });
 
@@ -87,7 +89,7 @@ io.on('connection', function(socket){
 
         var newMsg = new message({
           content: msg.content,
-          author: "Anonymous",
+          author: msg.author,
           type: "Message",
           channel: msg.channel
         });
