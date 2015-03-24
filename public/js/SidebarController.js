@@ -11,6 +11,9 @@
     this.addChannel = function() {
       this.socket.emit('channel', this.channel.name);
       this.channel = {};
+
+      $('#myModal').modal('hide');
+
     };
 
     this.changeChannel = function(channelName) {
@@ -31,6 +34,8 @@
 
     this.socket.on('initialisation-channels', function(channels) {
 
+      console.log(channels);
+
       var persistedChannels = [];
 
       sidebarController.channels = [];
@@ -39,8 +44,8 @@
       sidebarController.channels.push({name: 'General', current:true});
 
       channels.forEach(function (channel) {
-        if(channel.name != 'General') {
-          sidebarController.channels.push(channel);
+        if(channel != 'General') {
+          sidebarController.channels.push({name:channel, current:false});
         }
       });
 

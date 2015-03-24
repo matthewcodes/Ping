@@ -32,8 +32,9 @@ io.on('connection', function(socket){
         io.to(socket.id).emit('initialisation', messages);
     });
 
-    channel.find(function (err, channels) {
+    channel.distinct('name', function (err, channels) {
       if (err) return console.error(err);
+        console.log(channels);
         io.to(socket.id).emit('initialisation-channels', channels);
     });
 
