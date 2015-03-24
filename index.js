@@ -5,6 +5,11 @@ var io = require('socket.io')(http);
 var mongoose = require('mongoose');
 var message = require('./models/message');
 var channel = require('./models/channel');
+var passport = require('passport');
+var flash    = require('connect-flash');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var expressSession = require('express-session');
 
 mongoose.connect('mongodb://localhost/ping', function(err){
   if(err) {
@@ -14,14 +19,21 @@ mongoose.connect('mongodb://localhost/ping', function(err){
   }
 });
 
+require('./passport/config')(passport); // pass passport for configuration
+
 app.set('port', (process.env.PORT || 3000));
 //serve up our static js and css files
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
-});
+// Configuring Passport
+app.use(expressSession({secret: 'mySecretKey',resave: true,saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
+require('./routes.js')(app, passport);
 
 io.on('connection', function(socket){
     console.log('a user connected');
