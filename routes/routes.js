@@ -1,14 +1,16 @@
 module.exports = function(app, passport, io, message) {
+  var path = require('path');
+
   app.get('/', isAuthenticated, function(req, res){
     if(req.user) {
       res.cookie('user', JSON.stringify(req.user.username));
     }
 
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(path.join(__dirname, '/../index.html'));
   });
 
   app.get('/login', function(req, res) {
-    res.sendFile(__dirname + '/login.html');
+    res.sendFile(path.join(__dirname, '/../login.html'));
   });
 
   app.post('/login', passport.authenticate('local-login', {
@@ -18,7 +20,7 @@ module.exports = function(app, passport, io, message) {
   }));
 
   app.get('/login_error', function(req, res) {
-    res.sendFile(__dirname + '/login_error.html');
+    res.sendFile(path.join(__dirname, '/../login_error.html'));
   });
 
   app.post('/login_error', passport.authenticate('local-login', {
@@ -28,7 +30,7 @@ module.exports = function(app, passport, io, message) {
   }));
 
   app.get('/signup', function(req, res) {
-    res.sendFile(__dirname + '/signup.html');
+    res.sendFile(path.join(__dirname, '/../signup.html'));
   });
 
   app.post('/signup', passport.authenticate('local-signup', {
@@ -38,7 +40,7 @@ module.exports = function(app, passport, io, message) {
   }));
 
   app.get('/signup_error', function(req, res) {
-    res.sendFile(__dirname + '/signup_error.html');
+    res.sendFile(path.join(__dirname, '/../signup_error.html'));
   });
 
   app.post('/signup_error', passport.authenticate('local-signup', {

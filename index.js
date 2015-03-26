@@ -28,6 +28,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
 app.use(express.static(__dirname + '/app'));
+app.use(express.static(__dirname + '/assets'));
 
 // Configuring Passport
 app.use(expressSession({secret: 'mySecretKey',resave: true,saveUninitialized: true}));
