@@ -12,7 +12,7 @@ var bodyParser   = require('body-parser');
 var expressSession = require('express-session');
 var pingbot = require('./pingbot');
 
-var dbConfig = require('./db.js');
+var dbConfig = require('./config/db.js');
 mongoose.connect(dbConfig.url, function(err){
   if(err) {
     console.log(err);
