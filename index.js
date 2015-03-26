@@ -27,7 +27,7 @@ app.set('port', (process.env.PORT || 3000));
 //serve up our static js and css files
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/app'));
 
 // Configuring Passport
 app.use(expressSession({secret: 'mySecretKey',resave: true,saveUninitialized: true}));
