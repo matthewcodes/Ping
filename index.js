@@ -35,7 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-require('./routes.js')(app, passport, io, message);
+require('./routes/routes.js')(app, passport, io, message);
 
 var onlineUsers = [];
 
