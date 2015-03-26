@@ -125,7 +125,7 @@ io.on('connection', function(socket){
         var userAlreadyHere = false;
         for (var i = 0; i < onlineUsers.length; i++) {
           console.log('Checking user:' + JSON.stringify(onlineUsers[i]));
-          if (onlineUsers[i].sid == socket.id) {
+          if (onlineUsers[i].sid == socket.id || onlineUsers[i].username == username) {
             userAlreadyHere = true;
           }
         }
