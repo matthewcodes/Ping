@@ -132,9 +132,10 @@ io.on('connection', function(socket){
 
         if(!userAlreadyHere) {
           onlineUsers.push({"username": username, "sid": socket.id});
-          io.emit('refresh-users', onlineUsers);
           console.log('users:' + JSON.stringify(onlineUsers));
         }
+
+        io.emit('refresh-users', onlineUsers);
     });
 
 });
