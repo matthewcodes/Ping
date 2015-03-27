@@ -137,7 +137,7 @@ io.on('connection', function(socket){
         }
 
         io.emit('refresh-users', onlineUsers);
-    });
+    }); 
 
 });
 
