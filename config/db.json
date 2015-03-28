@@ -1,0 +1,11 @@
+{
+    "default": {
+        "url" : "mongodb://localhost/ping"
+    },
+    "development": {
+        "url" : "mongodb://localhost/ping"
+    },
+    "production": {
+        "url" : "mongodb://chat:P4$$w0rd@ds031631.mongolab.com:31631/chat"
+    }
+}

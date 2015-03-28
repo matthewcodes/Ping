@@ -11,14 +11,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var expressSession = require('express-session');
 var pingbot = require('./pingbot');
+var config = require('konfig')();
 
-var dbConfig = require('./config/db.js');
-mongoose.connect(dbConfig.url, function(err){
-  if(err) {
-    console.log(err);
-  } else {
+var dbUrl = config.db.url;
+mongoose.connect(dbUrl, function(err){
+    if(err) {
+        console.log(err);
+    } else {
     console.log('Connected to mongodb!');
-  }
+    }
 });
 
 require('./passport/config')(passport); // pass passport for configuration
