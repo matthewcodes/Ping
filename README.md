@@ -1,4 +1,4 @@
-# Ping
+# Ping [![Build Status](https://travis-ci.org/matthewcodes/ping.svg?branch=master)](https://travis-ci.org/matthewcodes/ping)
 A simple group chat, built with node.js and mongodb. 
 
 ### Features
