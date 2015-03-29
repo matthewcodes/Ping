@@ -44,8 +44,6 @@
 
     this.socket.on('initialisation-channels', function(channels) {
 
-      console.log(channels);
-
       var persistedChannels = [];
 
       sidebarController.channels = [];
@@ -65,9 +63,6 @@
 
     this.socket.on('refresh-users', function(onlineUsers) {
       sidebarController.onlineUsers = onlineUsers;
-
-      console.log(onlineUsers);
-
       sidebarController.apply();
     });
 

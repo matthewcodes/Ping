@@ -29,7 +29,6 @@
     var messagesController = this;
 
     this.socket.on('message', function (msg) {
-      console.log(msg);
       if(msg.channel == messagesController.currentChannel) {
         messagesController.messages.push(msg);
         messagesController.apply();
