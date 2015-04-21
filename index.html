@@ -126,7 +126,7 @@
             <div class="container-fluid bottom">
               <form name="messageForm" ng-submit="messagesCtrl.addMessage()">
                 <div class="input-group ">
-          	        <input ng-model="messagesCtrl.message.content" type="text" class="form-control" placeholder="Enter your message">
+          	        <input ng-model="messagesCtrl.message.content" type="text" class="form-control" placeholder="Enter your message" required oninvalid="this.setCustomValidity('Message cannot be blank')">
           	        <span class="input-group-btn">
           	          <input class="btn btn-default" type="submit" value="Send"></input>
           		    </span>
