@@ -128,7 +128,7 @@
                 <div class="input-group ">
           	        <input ng-model="messagesCtrl.message.content" type="text" class="form-control" placeholder="Enter your message">
           	        <span class="input-group-btn">
-          	          <input class="btn btn-default" type="submit" value="Send"></input>
+          	          <input ng-disabled="!messagesCtrl.message.content.length" class="btn btn-default" type="submit" value="Send"></input>
           		    </span>
           		  </div>
               </form>
