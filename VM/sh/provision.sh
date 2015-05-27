@@ -39,6 +39,9 @@ hostname nodejs-vagrant
 # Vim settings:
 /vagrant/sh/vim.sh
 
+# Install PhantomJS:
+/vagrant/sh/phantomjs.sh
+
 touch /etc/vagrant-provisioned
 
 echo "--------------------------------------------------"
