@@ -9,6 +9,6 @@
         "url" : "mongodb://pingdbuser:P4$$w0rdTheBoyYe!@ds059471.mongolab.com:59471/ping"
     },
     "production": {
-        "url" : "mongodb://chat:P4$$w0rd@ds031631.mongolab.com:31631/chat"
+        "url" : "mongodb://mwilson:mwilson@ds053164.mongolab.com:53164/chat"
     }
 }
